@@ -589,7 +589,7 @@
     if ((audioFile != nil) && (audioFile.recorder != nil)) {
         NSLog(@"Paused recording audio sample '%@'", audioFile.resourcePath);
         [audioFile.recorder pause];
-        NSString* jsString = [NSString stringWithFormat:@"%@(\"%@\",%d,%d);", @"cordova.require(''cordova/plugin/Media'').onStatus", mediaId, MEDIA_STATE, MEDIA_PAUSED];
+        NSString* jsString = [NSString stringWithFormat:@"%@(\"%@\",%d,%d);", @"cordova.require('cordova/plugin/Media').onStatus", mediaId, MEDIA_STATE, MEDIA_PAUSED];
         [self.commandDelegate evalJs:jsString];
     }
 
@@ -629,7 +629,7 @@
         [audioFile.recorder updateMeters];
         double averagePower = [audioFile.recorder averagePowerForChannel:0];
         double peakPower = [audioFile.recorder peakPowerForChannel:0];
-        NSString* jsString = [NSString stringWithFormat:@"%@(\"%@\",%d,%f,%f);", @"cordova.require(''cordova/plugin/Media'').onStatus", mediaId, MEDIA_LEVEL, averagePower, peakPower];
+        NSString* jsString = [NSString stringWithFormat:@"%@(\"%@\",%d,%f,%f);", @"cordova.require('cordova/plugin/Media').onStatus", mediaId, MEDIA_LEVEL, averagePower, peakPower];
         [self.commandDelegate evalJs:jsString];
     }
 }
@@ -661,7 +661,7 @@
     NSLog(@"Audio interruption");
     CDVAudioRecorder* aRecorder = (CDVAudioRecorder*)recorder;
     NSString* mediaId = aRecorder.mediaId;
-    NSString* jsString = [NSString stringWithFormat:@"%@(\"%@\",%d,%d);", @"cordova.require(''cordova/plugin/Media'').onStatus", mediaId, MEDIA_STATE, MEDIA_INTERRUPTED];
+    NSString* jsString = [NSString stringWithFormat:@"%@(\"%@\",%d,%d);", @"cordova.require('cordova/plugin/Media').onStatus", mediaId, MEDIA_STATE, MEDIA_INTERRUPTED];
     [self.commandDelegate evalJs:jsString];
 }
 
@@ -675,7 +675,7 @@
         [self.avSession setActive:NO error:nil];
     }
 
-    NSString* jsString = [NSString stringWithFormat:@"%@(\"%@\",%d,%@);", @"cordova.require(''cordova/plugin/Media'').onStatus", mediaId, MEDIA_ERROR, [self createMediaErrorWithCode:MEDIA_ERR_DECODE message:nil]];
+    NSString* jsString = [NSString stringWithFormat:@"%@(\"%@\",%d,%@);", @"cordova.require('cordova/plugin/Media').onStatus", mediaId, MEDIA_ERROR, [self createMediaErrorWithCode:MEDIA_ERR_DECODE message:nil]];
     [self.commandDelegate evalJs:jsString];
 }
 
